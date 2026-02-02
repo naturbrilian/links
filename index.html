@@ -1,76 +1,428 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="id">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lieba Natur Brilian | @naturbrilian</title>
-    <!-- Favicon -->
+    <link rel="me" href="https://mastodon.social/@naturbrilian"/a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" href="https://avatars.githubusercontent.com/u/9246423" type="image/x-icon" />
-    <!-- Font Awesome icons -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <!-- Core theme CSS -->
-    <link rel="stylesheet" href="style.css">
-  </head>
+    <style>
+        /* --- PENGATURAN DASAR --- */
+        :root {
+            --bg-gradient: #303446;
+            --text-color: #c6d0f5;
+            --button-bg: #51576d;
+            --button-text: #c6d0f5;
+            --button-hover: #ca9ee6;
+            --text-hover: #4c4f69;
+        }
 
-  <body>
-    <!-- Parallax Pixel Background Animation -->
-  
-    <!-- End of Parallax Pixel Background Animation -->
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    <a id="profilePicture" href="#popup">
-      <img src="https://avatars.githubusercontent.com/u/9246423" alt="Profile Picture">
-    </a>
+/* --- JUDUL KATEGORI (WEBSITE, DLL) --- */
+        .category {
+            color: var(--text-color); /* Mengambil warna putih kebiruan dari variabel */
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 24px;    /* Memberi jarak dari elemen atasnya */
+            margin-bottom: 1px; /* Memberi jarak ke tombol di bawahnya */
+            text-transform: uppercase; /* Opsional: Membuat tulisan jadi HURUF KAPITAL semua */
+        }
 
-    <div class="overlay" id="popup">
-      <div class="popup">
-        <div class="popup-photo">
-          <a href="https://avatars.githubusercontent.com/u/9246423" target="_blank">
-            <img src="https://avatars.githubusercontent.com/u/9246423" alt="Profile Picture">
-          </a>
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Menengahkan vertikal & horizontal */
+            padding: 20px;
+        }
+
+        /* --- WADAH UTAMA (CONTAINER) --- */
+        .container {
+            width: 120%;
+            max-width: 590px; /* Sedikit lebih lebar agar lega */
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* --- MAGIC STEP: TAMPILAN DESKTOP --- */
+        /* Kode di dalam sini hanya aktif jika layar lebih besar dari 768px (Tablet/PC) */
+        @media (min-width: 768px) {
+            .container {
+                background: rgba(41, 44, 60, 0.15); /* Latar transparan putih */
+                backdrop-filter: blur(12px); /* Efek Blur Kaca (Glassmorphism) */
+                -webkit-backdrop-filter: blur(12px); /* Support Safari */
+                padding: 50px 40px; /* Memberi jarak dalam */
+                border-radius: 24px; /* Sudut membulat */
+                border: 1px solid rgba(98, 104, 128, 0.2); /* Garis tepi halus */
+            }
+        }
+
+        /* --- FOTO PROFIL --- */
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(98, 104, 128, 0.8);
+            margin-bottom: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .username {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #c6d0f5;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .bio {
+            color: #c6d0f5;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+            line-height: 1.5;
+            font-weight: 400;
+            padding: 0 10px;
+        }
+
+        /* --- TOMBOL LINKS --- */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .link-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 2px solid transparent; /* Persiapan untuk hover */
+        }
+
+        /* Efek Hover Desktop yang lebih responsif */
+        .link-btn:hover {
+            transform: scale(1.02) translateY(-2px);
+            background-color: var(--button-hover);
+            color: var(--text-hover);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+/* --- ICON KECIL DI BAWAH --- */
+        .social-icons {
+            margin-top: 35px;
+            
+            display: flex;             /* Mode baris */
+            justify-content: center;   /* Rata tengah */
+            align-items: center;       
+            
+            flex-wrap: wrap;           /* KUNCI: Izinkan icon turun ke baris baru */
+            gap: 4px;                 /* Jarak antar icon (atas-bawah-kiri-kanan) */
+            
+            max-width: 100%;           /* Agar tidak melebar melebihi wadah */
+            margin-left: auto;         /* Trik memastikan posisi tengah */
+            margin-right: auto;
+        }
+
+        /* Opsional: Jika di desktop icon-nya masih terlalu panjang kesamping */
+        /* dan kamu ingin memaksa mereka turun lebih cepat, tambahkan ini: */
+        @media (min-width: 768px) {
+            .social-icons {
+                max-width: 80%; /* Membatasi lebar area icon agar cepat turun */
+            }
+        }
+        
+        .social-icons a {
+            /* ... (kode icon kamu yang lama tetap sama) ... */
+            color: white; 
+            text-decoration: none;
+            font-size: 1.6rem;
+            opacity: 0.7;
+            transition: all 0.3s;
+            
+            /* Tambahan: Pastikan icon punya ruang gerak */
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            width: 40px; /* Ukuran area klik */
+            height: 40px;
+        }
+        
+        .social-icons a {
+            color: #c6d0f5;
+            text-decoration: none;
+            font-size: 1.6rem;
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        /* Tambahan: Footer text (Quote) */
+        .footer-quote {
+            margin-top: 40px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://avatars.githubusercontent.com/u/9246423?v=4" alt="Lieba Natur Brilian" class="profile-img">
+        
+        <h1 class="username">Lieba Natur Brilian</h1>
+        <p class="bio">She/Her | EN/ID | Graphics Designer & Video Editor | Translator</p>
+
+        <div class="social-icons">
+            <a href="mailto:gingalibadeidara@gmail.com" title="Email" target="_blank">
+                <i class="fa-solid fa-envelope"></i>
+            </a> 
+            <a href="https://linkedin.com/in/naturbrilian" title="LinkedIn" target="_blank">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://mastodon.social/@naturbrilian" title="Mastodon" target="_blank">
+                <i class="fa-brands fa-mastodon"></i>
+            </a>
+            <a href="https://facebook.com/naturbrilian" title="Facebook" target="_blank">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://discord.com/users/304313603253862401" title="Discord" target="_blank">
+                <i class="fa-brands fa-discord"></i>
+            </a>
+            <a href="https://bsky.app/profile/me.naturbrilian.dpdns.org" title="Bluesky" target="_blank">
+                <i class="fa-brands fa-bluesky"></i>
+            </a>
+            <a href="https://github.com/naturbrilian" title="GitHub" target="_blank">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://t.me/naturbrilian" title="Telegram" target="_blank">
+                <i class="fa-brands fa-telegram"></i>
+            </a>
+            <a href="https://www.threads.com/@naturbrilian" title="Threads" target="_blank">
+                <i class="fa-brands fa-threads"></i>
+            </a>           
+            <a href="https://instagram.com/naturbrilian" title="Instagram" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a> 
+            <a href="https://pixelfed.social/naturbrilian" title="Pixelfed" target="_blank">
+                <i class="fa-brands fa-pixelfed"></i>
+            </a>
+            <a href="https://twitter.com/naturbrilian" title="Twitter/X" target="_blank">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a> 
+            <a href="https://music.youtube.com/@naturbrilian" title="YouTube Music" target="_blank">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="https://soundcloud.com/naturbrilian" title="SoundCloud" target="_blank">
+                <i class="fa-brands fa-soundcloud"></i>
+            </a>
+            <a href="https://open.spotify.com/user/gingalibadeidara" title="Spotify" target="_blank">
+                <i class="fa-brands fa-spotify"></i>
+            </a>
+            <a href="http://vk.com/naturbrilian" title="VK" target="_blank">
+                <i class="fa-brands fa-vk"></i>
+            </a>
+            <a href="https://tiktok.com/@naturbrilian" title="TikTok" target="_blank">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://snapchat.com/add/naturbrilian" title="Snapchat" target="_blank">
+                <i class="fa-brands fa-snapchat"></i>
+            </a>
+            <a href="https://pinterest.com/naturbrilian" title="Pinterest" target="_blank">
+                <i class="fa-brands fa-pinterest"></i>
+            </a>
+            <a href="https://clubhouse.com/@naturbrilian" title="Clubhouse" target="_blank">
+                <i class="fa-brands fa-clubhouse"></i>
+            </a>
+        </div>        
+
+      <div class="links">
+
+            <h2 class="category">Website</h2>
+           
+            <a href="https://naturbrilian.great-site.net" class="link-btn" target="_blank">
+                <i class="fa-brands fa-wordpress" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Main Website
+            </a>
+
+            <a href="https://naturbrilian.dpdns.net" class="link-btn" target="_blank">
+                <i class="fa-solid fa-globe" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Fun Website
+            </a>
+
+            <a href="https://medium.com/@naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-medium" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Medium Blog (archived)
+            </a>
+
+            <a href="https://naturbrilian.blogspot.com/" class="link-btn" target="_blank">
+                <i class="fa-brands fa-blogger" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Blogger Blog (archived)
+            </a>
+
+            <h2 class="category">Portofolio & Commisions</h2>
+            
+            <a href="https://deviantart.com/gingalibadeidara" class="link-btn" target="_blank">
+                <i class="fa-brands fa-deviantart" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Deviantart
+            </a>
+
+            <a href="https://www.foriio.com/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-solid fa-business-time" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Portofolio
+            </a>
+
+            <a href="https://behance.net/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-behance" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Behance
+            </a>
+
+            <a href="https://vgen.co/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-solid fa-briefcase" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                VGen Co
+            </a>
+
+            <a href="https://pixiv.me/hifumidaiki" class="link-btn" target="_blank">
+                <i class="fa-brands fa-pixiv" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Pixiv
+            </a>
+
+            <h2 class="category" >Project</h2>
+
+            <a href="https://crowdin.com/profile/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-solid fa-language" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Crowdin
+            </a>
+
+            <a href="https://codeberg.org/user/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-codeberg" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Codeberg
+            </a>
+
+            <a href="https://app.transifex.com/user/profile/naturbrilian/" class="link-btn" target="_blank">
+                <i class="fa-solid fa-language" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Transifex
+            </a>
+
+            <a href="https://gitlab.com/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-gitlab" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                GitLab
+            </a>
+
+            <h2 class="category">Community / Komunitas</h2>
+
+            <a href="https://naturbrilian.great-site.net/forum" class="link-btn" target="_blank">
+                <i class="fa-solid fa-users" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Forum
+            </a>
+
+            <a href="https://naturbrilian.great-site.net/discord-server" class="link-btn" target="_blank">
+                <i class="fa-brands fa-discord" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Discord Server
+            </a>
+
+            <h2 class="category">Zenotype Project (Abandoned)</h2>
+
+            <a href="https://www.threads.net/@zenotype_project" class="link-btn" target="_blank">
+                <i class="fa-brands fa-threads" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Threads
+            </a>
+
+            <a href="https://www.facebook.com/naturbrilian.fp" class="link-btn" target="_blank">
+                <i class="fa-brands fa-facebook" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Facebook Page (Archived)
+            </a>
+
+            <h2 class="category">My recent Listening</h2>
+
+            <a href="https://scrobble.naturbrilian.dpdns.org/" class="link-btn" target="_blank">
+                <i class="fa-solid fa-headphones" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Maloja
+            </a>
+
+            <a href="https://libre.fm/user/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-solid fa-music" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Libre.fm
+            </a>
+
+            <a href="https://listenbrainz.org/user/naturbrilian/" class="link-btn" target="_blank">
+                <i class="fa-solid fa-headphones-simple" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                ListenBrainz
+            </a>
+
+            <a href="https://last.fm/user/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-lastfm" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Last.fm
+            </a>
+
+            <h2 class="category">My recent Watching</h2>
+
+            <a href="https://trakt.tv/users/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-solid fa-tv" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Trakt.tv
+            </a>
+
+            <a href="https://anilist.co/user/naturbrilian/" class="link-btn" target="_blank">
+                <i class="fa-brands fa-anilist" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                AniList
+            </a>
+
+            <a href="https://myanimelist.net/profile/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-myanimelist" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                MyAnimeList
+            </a>
+
+            <a href="https://kitsu.io/users/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-kitsu" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Kitsu
+            </a>
+
+            <a href="https://letterboxd.com/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-letterboxd" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Letterboxd
+            </a>
+
+            <h2 class="category">Support Me</h2>
+
+            <a href="https://www.patreon.com/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-brands fa-patreon" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Patreon
+            </a>
+
+            <a href="https://trakteer.id/naturbrilian" class="link-btn" target="_blank">
+                <i class="fa-solid fa-hand-holding-dollar" style="margin-right: 10px; font-size: 1.2rem;"></i>
+                Trakteer
+            </a>
         </div>
-        <div class="popup-quote">
-          Either you run the day, or the day runs you. - Jim Rohn
+
+        <div class="footer-quote">
+            "I had hundreds of thousands of friends friends friends<br>
+            And none of them would care if I'm dead"
         </div>
-        <a class="popup-close" onclick="history.back()">&times;</a>
-      </div>
     </div>
 
-    <div id="userName">
-      Lieba Natur Brilian | @naturbrilian
-    </div>
-
-    <div id="links">
-      <a class="link" href="https://github.com/naturbrilian" target="_blank">
-        <i class="fab fa-github">&nbsp;</i>Github
-      </a>
-      <a class="link" href="https://gingalibadeidara.deviantart.com" target="_blank">
-        <i class="fab fa-deviantart">&nbsp;</i>Deviantart
-      </a>
-      <a class="link" href="https://www.facebook.com/naturbrilian" target="_blank">
-        <i class="fab fa-facebook">&nbsp;</i>Facebook
-      </a>
-      <a class="link" href="https://www.instagram.com/naturbrilian" target="_blank">
-        <i class="fab fa-instagram">&nbsp;</i>Instagram
-      </a>
-      <a class="link" href="https://twitter.com/naturbrilian" target="_blank">
-        <i class="fab fa-twitter">&nbsp;</i>Twitter
-      </a>
-      <a class="link" href="https://anilist.co/user/naturbrilian/" target="_blank">
-        <i class="fa fa-play-circle">&nbsp;</i>Anilist
-      </a>
-      <a class="link" href="https://scrobbling.naturbrilian.my.id/" target="_blank">
-        <i class="fa fa-play-circle">&nbsp;</i>My Scrobbling | Maloja
-      </a>
-      <a class="link" href="https://last.fm/user/naturbrilian" target="_blank">
-        <i class="fab fa-lastfm">&nbsp;</i>Last FM
-      </a>
-      <a class="link" href="https://discord.gg/Bz9YuXs9S3" target="_blank">
-      	<i class="fab fa-discord">&nbsp;</i>Discord Server
-      </a>
-    </div>
-
-    <div id="hashtag">
-      #BeHappy❤
-    </div>
-  </body>
+</body>
 </html>
